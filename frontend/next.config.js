@@ -11,12 +11,24 @@
  */
 module.exports = {
   reactStrictMode: true,
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": 'Access-Control-Allow-Methods', "value": '*' }
+
+        ],
+      },
+    ]
+  },
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:8080/:path*',
+        destination: 'http://localhost:8080/api/:path*',
       },
     ];
-  },
+  }
 };
