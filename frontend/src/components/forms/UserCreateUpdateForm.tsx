@@ -170,7 +170,7 @@ export default function UserCreateUpdateForm({ user, onClose }: Props) {
                 />
                 <StringInput
                   fieldName='address.zipCode'
-                  label='ZipCode'
+                  label='Zip Code'
                   control={control}
                 />
               </Stack>
