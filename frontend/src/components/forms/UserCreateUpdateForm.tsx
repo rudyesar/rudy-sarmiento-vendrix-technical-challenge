@@ -104,8 +104,73 @@ export default function UserCreateUpdateForm({ user, onClose }: Props) {
             >
               <Stack spacing={2}>
                 <StringInput
+                  fieldName='name.givenName'
+                  label='Given Name'
+                  control={control}
+                />
+                <StringInput
                   fieldName='name.middleName'
                   label='Middle Name'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='name.familyName'
+                  label='Family Name'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='name.suffix'
+                  label='Suffix'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='name.title'
+                  label='Title'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='role'
+                  label='Role'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='email'
+                  label='Email'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='phone'
+                  label='Phone'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='age'
+                  label='Age'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='address.address1'
+                  label='Address1'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='address.address2'
+                  label='Address2'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='address.city'
+                  label='City'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='address.state'
+                  label='State'
+                  control={control}
+                />
+                <StringInput
+                  fieldName='address.zipCode'
+                  label='ZipCode'
                   control={control}
                 />
               </Stack>
