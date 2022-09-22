@@ -102,79 +102,106 @@ export default function UserCreateUpdateForm({ user, onClose }: Props) {
               onSubmit={handleSubmit((data) => handleSave(data))}
               className='form'
             >
-              <Stack spacing={2}>
-                <StringInput
-                  fieldName='name.givenName'
-                  label='Given Name'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='name.middleName'
-                  label='Middle Name'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='name.familyName'
-                  label='Family Name'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='name.suffix'
-                  label='Suffix'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='name.title'
-                  label='Title'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='role'
-                  label='Role'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='email'
-                  label='Email'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='companyName'
-                  label='Company Name'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='address.streetAddress'
-                  label='Streed Address'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='address.extendedAddress'
-                  label='Extended Address'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='address.postalCode'
-                  label='Postal Code'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='address.region'
-                  label='Region'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='address.locality'
-                  label='Locality'
-                  control={control}
-                />
-                <StringInput
-                  fieldName='address.countryCodeAlpha3'
-                  label='Country Code'
-                  control={control}
-                />
+              <Stack display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+                <Box gridColumn="span 4">
+                  <StringInput
+                    fieldName='name.givenName'
+                    label='Given Name'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 4">
+                  <StringInput
+                    fieldName='name.middleName'
+                    label='Middle Name'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 4">
+                  <StringInput
+                    fieldName='name.familyName'
+                    label='Family Name'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 2">
+                  <StringInput
+                    fieldName='name.suffix'
+                    label='Suffix'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 2">
+                  <StringInput
+                    fieldName='name.title'
+                    label='Title'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 4">
+                  <StringInput
+                    fieldName='role'
+                    label='Role'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 4">
+                  <StringInput
+                    fieldName='email'
+                    label='Email'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 3">
+                  <StringInput
+                    fieldName='companyName'
+                    label='Company Name'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 5">
+                  <StringInput
+                    fieldName='address.streetAddress'
+                    label='Street Address'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 4">
+                  <StringInput
+                    fieldName='address.extendedAddress'
+                    label='Extended Address'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 3">
+                  <StringInput
+                    fieldName='address.postalCode'
+                    label='Postal Code'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 3">
+                  <StringInput
+                    fieldName='address.region'
+                    label='Region'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 3">
+                  <StringInput
+                    fieldName='address.locality'
+                    label='Locality'
+                    control={control}
+                  />
+                </Box>
+                <Box gridColumn="span 3">
+                  <StringInput
+                    fieldName='address.countryCodeAlpha3'
+                    label='Country Code'
+                    control={control}
+                  />
+                </Box>
               </Stack>
-
               {/* Submit Buttons */}
               <Stack direction='row' sx={{ justifyContent: 'flex-end', mt: 2 }}>
                 <LoadingButton
