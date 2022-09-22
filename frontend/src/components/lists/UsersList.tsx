@@ -97,7 +97,22 @@ export default function UsersList({ users }: UsersListProps) {
       <Container sx={{ p: 1 }}>
         <Typography variant='h4'>Users</Typography>
       </Container>
-
+      <Container>
+        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+          <Box gridColumn="span 3">
+            <Typography variant='h6'>Given Name</Typography>
+          </Box>
+          <Box gridColumn="span 3">
+            <Typography variant='h6'>Family Name</Typography>
+          </Box>
+          <Box gridColumn="span 3">
+          <Typography variant='h6'>Role</Typography>
+          </Box>
+          <Box gridColumn="span 3">
+          <Typography variant='h6'>Email</Typography>
+          </Box>
+        </Box>
+      </Container>
       {users.length ? (
         <ListRootStyle>
           {users.map((user) => (
