@@ -24,6 +24,9 @@ let redisClient: any;
 })();
 
 app.use('/users', async (req: Request, res: Response, next: NextFunction) => {
+  console.log('request method', req.method);
+  console.log('request url', req.url);
+
   res.set('Access-Control-Allow-Origin', '*');
   // res.set('Access-Control-Allow-Methods', '*');
 
@@ -78,113 +81,131 @@ app.use('/users', async (req: Request, res: Response, next: NextFunction) => {
  * TODO: implement endpoint
  */
 app.use('/cards/:cardId', async (req: Request, res: Response, next: NextFunction) => {
-  console.log('cardId', req.params.cardId)
-  console.log('API Key', process.env.HIGHNOTE_API_KEY)
-  if (req.method === 'POST') {
-    fetch('https://api.us.test.highnoteplatform.com/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json',
-                  // 'Accept': 'application/json',
-                 'Authorization': `${process.env.HIGHNOTE_API_KEY}`
-                },
-      body: JSON.stringify({ query:
-        `query GetPaymentCardById($paymentCardId: ID!) {
-          node(id: ${req.params.cardId}) {
-            ... on PaymentCard {
+
+  const btoaImplementation = str => {
+    try {
+        return btoa(str);
+    } catch(err) {
+        return Buffer.from(str).toString('base64')
+    }
+  };
+  const encodedKey = 'Basic ' + btoaImplementation(process.env.HIGHNOTE_API_KEY);
+
+  // console.log('encodedKey', encodedKey);
+  const id = req.params.cardId;
+  if (req.method === 'GET') {
+
+    const payload = JSON.stringify({
+      query:`query GetPaymentCardById($paymentCardId: ID!) {
+        node(id: $paymentCardId) {
+          ... on PaymentCard {
+            id
+            bin
+            last4
+            expirationDate
+            network
+            status
+            formFactor
+            restrictedDetails {
+              ... on PaymentCardRestrictedDetails {
+                number
+                cvv
+              }
+              ... on AccessDeniedError {
+                message
+              }
+            }
+            physicalPaymentCardOrders {
               id
-              bin
-              last4
-              expirationDate
-              network
-              status
-              formFactor
-              restrictedDetails {
-                ... on PaymentCardRestrictedDetails {
-                  number
-                  cvv
+              paymentCardShipment {
+                courier {
+                  method
+                  signatureRequiredOnDelivery
+                  tracking {
+                    trackingNumber
+                    actualShipDateLocal
+                  }
                 }
-                ... on AccessDeniedError {
-                  message
+                requestedShipDate
+                deliveryDetails {
+                  name {
+                    middleName
+                    givenName
+                    familyName
+                    suffix
+                    title
+                  }
+                  companyName
+                  address {
+                    streetAddress
+                    extendedAddress
+                    postalCode
+                    region
+                    locality
+                    countryCodeAlpha3
+                  }
+                }
+                senderDetails {
+                  name {
+                    givenName
+                    middleName
+                    familyName
+                    suffix
+                    title
+                  }
+                  companyName
+                  address {
+                    streetAddress
+                    extendedAddress
+                    postalCode
+                    region
+                    locality
+                    countryCodeAlpha3
+                  }
                 }
               }
-              physicalPaymentCardOrders {
-                id
-                paymentCardShipment {
-                  courier {
-                    method
-                    signatureRequiredOnDelivery
-                    tracking {
-                      trackingNumber
-                      actualShipDateLocal
-                    }
-                  }
-                  requestedShipDate
-                  deliveryDetails {
-                    name {
-                      middleName
-                      givenName
-                      familyName
-                      suffix
-                      title
-                    }
-                    companyName
-                    address {
-                      streetAddress
-                      extendedAddress
-                      postalCode
-                      region
-                      locality
-                      countryCodeAlpha3
-                    }
-                  }
-                  senderDetails {
-                    name {
-                      givenName
-                      middleName
-                      familyName
-                      suffix
-                      title
-                    }
-                    companyName
-                    address {
-                      streetAddress
-                      extendedAddress
-                      postalCode
-                      region
-                      locality
-                      countryCodeAlpha3
-                    }
-                  }
+              orderState {
+                status
+              }
+              cardPersonalization {
+                textLines {
+                  line1
+                  line2
                 }
-                orderState {
-                  status
-                }
-                cardPersonalization {
-                  textLines {
-                    line1
-                    line2
-                  }
-                }
+              }
+              createdAt
+              updatedAt
+              stateHistory {
+                previousStatus
+                newStatus
                 createdAt
-                updatedAt
-                stateHistory {
-                  previousStatus
-                  newStatus
-                  createdAt
-                }
               }
             }
           }
         }
-      `}),
+      }
+      `,
+      variables: {
+        "paymentCardId": id
+      }
+    });
+
+    fetch('https://api.us.test.highnoteplatform.com/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json',
+                 'Authorization': `${encodedKey}`
+                },
+      body: payload
     })
-    .then(r => r.json())
+    .then((r) => {
+      return r.json();
+    })
     .then((data) => {
       console.log('data returned:', data);
-      res.status(200).send(data);
+      return res.status(200).send(data);
     })
-    .catch((err) => {
-      res.status(400).send(err)
+    .catch((error) => {
+      res.send(error);
     })
   }
 
