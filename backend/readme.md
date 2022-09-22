@@ -34,7 +34,7 @@ _You can read more about the Highnote platform API at: https://highnoteplatform.
 
 ## Task List
 
-- [ ] Add logic to express server to determine when a card detail request is being made vs. user request (existing functionality)
+- [x] Add logic to express server to determine when a card detail request is being made vs. user request (existing functionality)
 
 - [ ] Query the Highnote API, and return the card details to the client
 
