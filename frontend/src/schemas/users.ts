@@ -1,3 +1,4 @@
+import { Email } from '@mui/icons-material';
 import { z } from 'zod';
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -39,15 +40,15 @@ export const User = z.object({
     suffix: z.string().optional(),
     title: z.string().optional(),
   }),
-  email: z.string().email({ message: "Invalid email address" }),
-  phone: z.string().min(5, { message: "Must be 5 or more characters long" }).max(20, { message: "Must be 20 or fewer characters long" }),
-  age: z.number().optional(),
+  email: z.string().email({ message: "Invalid email address"}),
+  companyName: z.string().min(1, { message: "Must be 1 or more characters long" }).max(100, { message: "Must be 100 or fewer characters long" }),
   address: z.object({
-    address1: z.string().min(2, { message: "Must be 2 or more characters long" }).max(100, { message: "Must be 100 or fewer characters long" }),
-    address2: z.string().optional(),
-    city: z.string().min(2, { message: "Must be 2 or more characters long" }).max(100, { message: "Must be 100 or fewer characters long" }),
-    state: z.string().min(2, { message: "Must be 2 or more characters long" }).max(100, { message: "Must be 100 or fewer characters long" }),
-    zipCode: z.number()
+    streetAddress: z.string().min(2, { message: "Must be 2 or more characters long" }).max(100, { message: "Must be 100 or fewer characters long" }),
+    extendedAddress: z.string().optional(),
+    postalCode: z.string().min(2, { message: "Must be 2 or more characters long" }).max(20, { message: "Must be 50 or fewer characters long" }),
+    region: z.string().min(2, { message: "Must be 2 or more characters long" }).max(50, { message: "Must be 50 or fewer characters long" }),
+    locality: z.string().min(2, { message: "Must be 5 or more characters long" }).max(50, { message: "Must be 15 or fewer characters long" }),
+    countryCodeAlpha3: z.string().min(1, { message: "Must be 5 or more characters long" }).max(20, { message: "Must be 15 or fewer characters long" })
   })
 });
 export type User = z.infer<typeof User>;
@@ -63,6 +64,8 @@ export const createUserSchema = User.pick({
   role: true,
   name: true,
   email: true,
+  companyName: true,
+  address: true
 });
 export type CreateUser = z.infer<typeof createUserSchema>;
 
@@ -70,6 +73,8 @@ export const updateUserSchema = User.pick({
   role: true,
   name: true,
   email: true,
+  companyName: true,
+  address: true
 }).partial();
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 
@@ -85,9 +90,19 @@ export const defaultValuesUser = (): CreateUser => ({
   name: {
     familyName: '',
     givenName: '',
-    middleName: undefined,
-    suffix: undefined,
-    title: undefined,
+    middleName: '',
+    suffix: '',
+    title: '',
   },
   email: '',
+  companyName: '',
+  address: {
+    streetAddress: '',
+    extendedAddress: '',
+    postalCode: '',
+    region: '',
+    locality: '',
+    countryCodeAlpha3: ''
+  }
 });
+
