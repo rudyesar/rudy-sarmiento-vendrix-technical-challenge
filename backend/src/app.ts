@@ -1,5 +1,9 @@
 import express, { NextFunction, Response, Request } from 'express';
 import { createClient } from 'redis';
+import fetch from 'cross-fetch';
+
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
 // -------------------------------------------------------------
 // -------------------------------------------------------------
 
@@ -19,8 +23,9 @@ let redisClient: any;
   await redisClient.connect();
 })();
 
-app.use('/', async (req: Request, res: Response, next: NextFunction) => {
+app.use('/users', async (req: Request, res: Response, next: NextFunction) => {
   res.set('Access-Control-Allow-Origin', '*');
+  // res.set('Access-Control-Allow-Methods', '*');
 
   if (req.method === 'OPTIONS') {
     // Send response to OPTIONS requests
@@ -72,11 +77,118 @@ app.use('/', async (req: Request, res: Response, next: NextFunction) => {
  *
  * TODO: implement endpoint
  */
-app.use(
-  '/cards/:cardId',
-  async (req: Request, res: Response, next: NextFunction) => {
-    next();
+app.use('/cards/:cardId', async (req: Request, res: Response, next: NextFunction) => {
+  console.log('cardId', req.params.cardId)
+  console.log('API Key', process.env.HIGHNOTE_API_KEY)
+  if (req.method === 'POST') {
+    fetch('https://api.us.test.highnoteplatform.com/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json',
+                  // 'Accept': 'application/json',
+                 'Authorization': `${process.env.HIGHNOTE_API_KEY}`
+                },
+      body: JSON.stringify({ query:
+        `query GetPaymentCardById($paymentCardId: ID!) {
+          node(id: ${req.params.cardId}) {
+            ... on PaymentCard {
+              id
+              bin
+              last4
+              expirationDate
+              network
+              status
+              formFactor
+              restrictedDetails {
+                ... on PaymentCardRestrictedDetails {
+                  number
+                  cvv
+                }
+                ... on AccessDeniedError {
+                  message
+                }
+              }
+              physicalPaymentCardOrders {
+                id
+                paymentCardShipment {
+                  courier {
+                    method
+                    signatureRequiredOnDelivery
+                    tracking {
+                      trackingNumber
+                      actualShipDateLocal
+                    }
+                  }
+                  requestedShipDate
+                  deliveryDetails {
+                    name {
+                      middleName
+                      givenName
+                      familyName
+                      suffix
+                      title
+                    }
+                    companyName
+                    address {
+                      streetAddress
+                      extendedAddress
+                      postalCode
+                      region
+                      locality
+                      countryCodeAlpha3
+                    }
+                  }
+                  senderDetails {
+                    name {
+                      givenName
+                      middleName
+                      familyName
+                      suffix
+                      title
+                    }
+                    companyName
+                    address {
+                      streetAddress
+                      extendedAddress
+                      postalCode
+                      region
+                      locality
+                      countryCodeAlpha3
+                    }
+                  }
+                }
+                orderState {
+                  status
+                }
+                cardPersonalization {
+                  textLines {
+                    line1
+                    line2
+                  }
+                }
+                createdAt
+                updatedAt
+                stateHistory {
+                  previousStatus
+                  newStatus
+                  createdAt
+                }
+              }
+            }
+          }
+        }
+      `}),
+    })
+    .then(r => r.json())
+    .then((data) => {
+      console.log('data returned:', data);
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      res.status(400).send(err)
+    })
   }
-);
+
+  // next();
+});
 
 export default app;
