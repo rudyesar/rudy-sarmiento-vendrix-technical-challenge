@@ -139,38 +139,38 @@ export default function UserCreateUpdateForm({ user, onClose }: Props) {
                   control={control}
                 />
                 <StringInput
-                  fieldName='phone'
-                  label='Phone'
+                  fieldName='companyName'
+                  label='Company Name'
                   control={control}
                 />
                 <StringInput
-                  fieldName='age'
-                  label='Age'
+                  fieldName='address.streetAddress'
+                  label='Streed Address'
                   control={control}
                 />
                 <StringInput
-                  fieldName='address.address1'
-                  label='Address1'
+                  fieldName='address.extendedAddress'
+                  label='Extended Address'
                   control={control}
                 />
                 <StringInput
-                  fieldName='address.address2'
-                  label='Address2'
+                  fieldName='address.postalCode'
+                  label='Postal Code'
                   control={control}
                 />
                 <StringInput
-                  fieldName='address.city'
-                  label='City'
+                  fieldName='address.region'
+                  label='Region'
                   control={control}
                 />
                 <StringInput
-                  fieldName='address.state'
-                  label='State'
+                  fieldName='address.locality'
+                  label='Locality'
                   control={control}
                 />
                 <StringInput
-                  fieldName='address.zipCode'
-                  label='Zip Code'
+                  fieldName='address.countryCodeAlpha3'
+                  label='Country Code'
                   control={control}
                 />
               </Stack>
