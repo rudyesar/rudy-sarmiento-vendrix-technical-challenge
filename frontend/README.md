@@ -94,9 +94,9 @@ The "handleSave" function has already been built with the correct "react-query" 
 
 ###### _~0.5 hours - Style form and list_
 
-- [ ] Style/rearrange the "src/components/forms/UserCreateUpdateForm.tsx" component to maximize the UI/UX.
+- [x] Style/rearrange the "src/components/forms/UserCreateUpdateForm.tsx" component to maximize the UI/UX.
 
-- [ ] Style/rearrange the "src/components/lists/UsersList.tsx" component to maximize the UI/UX.
+- [x] Style/rearrange the "src/components/lists/UsersList.tsx" component to maximize the UI/UX.
 
 <br>
 
@@ -138,8 +138,8 @@ Use the below checklist to help keep track of your completed work.
 - [x] Add missing fields/inputs to the form
 - [x] Ensure all input fields are being validated correctly per the "zod" schema
 - [x] Submit valid data to the API
-- [ ] Style/rearrange the UserCreateUpdateForm component
-- [ ] Style/rearrange the UsersList component
+- [x] Style/rearrange the UserCreateUpdateForm component
+- [x] Style/rearrange the UsersList component
 
 <br>
 
@@ -147,23 +147,23 @@ Use the below checklist to help keep track of your completed work.
 
 - [x] In your own words, how could this form be optimized? Think in terms of both performance and UI/UX.
 
-  > [ One way to have optimized the form would have been by including a dropdown menu for the role input area. This would have provided for a better user experience as it would have given greater visibility to the limited role options. I also think that having more than one input field in a line would save space and make the form look less lengthy.]
+  > [ One way to have optimized the form would have been by including a dropdown menu for the role input area. This would have provided for a better user experience as it would have given greater visibility to the limited role options. I also think that making the User List scrollable after a certain length could provide for a better user experience.]
 
 - [x] There is a way to optimize the "StringInput" component (src/components/input/StringInput.tsx) using a React feature. What React feature/s would you use to optimize the component and reduce rerenders?
 
-  > [React.memo() can be used to prevent rerendering on React function components. This higher order component only rerenders when its props change]
+  > [React.memo() can be used to prevent rerendering on React function components. This higher order component only rerenders when its props change.]
 
 - [x] What STEM subject/research/product excites you most and why?
 
-  > [A subject that I find highly interesting is the research and development behind electric powered vehicles. Given that several US states and countries are planning on banning the sale of gasoline/diesel powered vehicles in the short to medium term, I think that we will see increased pressure on manufacturers to develop and produce really good battery powered vehicles. Aside from the politics surrounding the development of these vehicles, the innovation concerning batteries to make them smaller, stronger, and lighter is also exciting.]
+  > [A subject that I find highly interesting is the research and development behind electric powered vehicles. Given that several US states and countries are planning on banning the sale of gasoline/diesel powered vehicles in the short to medium term, I'm sure we will see increased pressure on manufacturers to develop and produce really good battery powered vehicles. Aside from the politics surrounding the development of these vehicles, the innovation concerning batteries to make them smaller, stronger, and lighter is also exciting.]
 
-- [ ] Any other thoughts?
+- [x] Any other thoughts?
 
-  > [YOUR RESPONSE]
+  > [Overall, this take home assessment has been a positive and great learning experience for me. I was able to not only apply my knowledge of React, Express, and Javascript, but I was also able to learn about new libraries, frameworks, and query languages in the process.]
 
   <br>
 
 ### Wrapping Up
 
-- [ ] Remove "node_modules" and ".next" folders before submitting
-- [ ] Submit per the instructions provided in the invitation
+- [x] Remove "node_modules" and ".next" folders before submitting
+- [x] Submit per the instructions provided in the invitation
